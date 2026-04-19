@@ -4,10 +4,13 @@ pipeline {
   stages {
 
     stage('Build Docker Image') {
-      steps {
-        sh 'docker build -t myapp:v2 .'
-      }
+    steps {
+        sh '''
+        export PATH=/usr/local/bin:$PATH
+        docker build -t myapp:v2 .
+        '''
     }
+}
 
     stage('Deploy Green') {
       steps {
