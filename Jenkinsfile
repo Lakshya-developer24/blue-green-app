@@ -13,13 +13,15 @@ pipeline {
 }
 
     stage('Deploy Green') {
-      steps {
-        sh '''
-        ssh -o StrictHostKeyChecking=no ubuntu@13.53.43.155 \
-        "kubectl apply -f ~/blue-green-app/deployment-green.yaml"
-        '''
-      }
+    steps {
+        sshagent(['ec2-key']) {
+            sh '''
+            ssh -o StrictHostKeyChecking=no ubuntu@13.53.43.155 \
+            "kubectl apply -f ~/blue-green-app/deployment-green.yaml"
+            '''
+        }
     }
+}
 
     stage('Switch Traffic') {
       steps {
