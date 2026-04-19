@@ -16,8 +16,11 @@ pipeline {
     steps {
         sshagent(['ec2-key']) {
             sh '''
-            ssh -o StrictHostKeyChecking=no ubuntu@13.53.43.155 \
-            "kubectl apply -f ~/blue-green-app/deployment-green.yaml"
+            ssh -o StrictHostKeyChecking=no ubuntu@13.53.43.155 "
+            minikube start;
+            kubectl config use-context minikube;
+            kubectl apply -f ~/blue-green-app/deployment-green.yaml
+            "
             '''
         }
     }
