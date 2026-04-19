@@ -31,9 +31,9 @@ pipeline {
         input "Switch to Green?"
         sshagent(['ec2-key']) {
             sh '''
-            ssh -o StrictHostKeyChecking=no ubuntu@13.53.43.155 \
-            "kubectl patch service myapp-service -p '{\"spec\":{\"selector\":{\"app\":\"myapp\",\"color\":\"green\"}}}'"
-            '''
+ssh -o StrictHostKeyChecking=no ubuntu@13.53.43.155 \
+'kubectl patch service myapp-service -p '"'"'{"spec":{"selector":{"app":"myapp","color":"green"}}}'"'"''
+'''
         }
     }
 }
